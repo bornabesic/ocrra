@@ -1,15 +1,18 @@
 import os.path
 from typing import Annotated
 
-import uvicorn
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from paddleocr import PaddleOCR
 from pydantic import BaseModel
+
+from middleware import LimitUploadSize
 
 DIRECTORY = os.path.dirname(__file__)
 MODEL_DIRECTORY = os.getenv("OCRRA_MODEL_DIR", os.path.join(DIRECTORY, "model"))
 
 app = FastAPI()
+app.add_middleware(LimitUploadSize, max_upload_size=5_000_000)
+
 ocr = PaddleOCR(
     use_angle_cls=True,
     lang="latin",
