@@ -3,3 +3,4 @@ uvicorn[standard]~=0.29
 paddlepaddle~=2.6
 paddleocr~=2.7
 python-multipart
+pydantic
