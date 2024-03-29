@@ -35,7 +35,7 @@ class RecognitionResult(BaseModel):
 
 
 @app.post("/recognize")
-async def recognize(image: Annotated[UploadFile, File()]):
+async def recognize(image: Annotated[UploadFile, File()]) -> list[RecognitionResult]:
     try:
         results = ocr.ocr(image.file.read(), cls=True)
     except Exception:
